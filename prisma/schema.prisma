@@ -11,21 +11,21 @@ datasource db {
 }
 
 model Deliveryman {
-    id       Int    @id @default(autoincrement())
+    id       String @id @default(uuid())
     username String @unique
     password String
 
-    @@map("deliveryman")
     Delivery Delivery[]
+    @@map("deliveryman")
 }
 
 model Client {
-    id       Int    @id @default(autoincrement())
+    id       String @id @default(uuid())
     username String @unique
     password String
 
-    @@map("client")
     Delivery Delivery[]
+    @@map("client")
 }
 
 model Delivery {
