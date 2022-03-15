@@ -16,4 +16,27 @@ model Deliveryman {
     password String
 
     @@map("deliveryman")
+    Delivery Delivery[]
+}
+
+model Client {
+    id       Int    @id @default(autoincrement())
+    username String @unique
+    password String
+
+    @@map("client")
+    Delivery Delivery[]
+}
+
+model Delivery {
+    id             Int         @id @default(autoincrement())
+    id_client      String
+    client         Client      @relation(fields: [id_client], references: [id])
+    id_deliveryman String
+    deliveryman    Deliveryman @relation(fields: [id_deliveryman], references: [id])
+    item_name      String
+    created_at     DateTime    @default(now())
+    end_at         DateTime    @default(now())
+
+    @@map("delivery")
 }
