@@ -17,6 +17,6 @@ export class AuthenticateClientUseCase {
       throw new Error("Username or password invalid!");
     }
 
-    return "asdadasd";
+    return {token : 'asasd'};
   }
 }
