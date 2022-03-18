@@ -1,3 +1,5 @@
+import { compare } from "bcrypt";
+import jwt from "jsonwebtoken";
 import prismaClient from "../../../../database";
 
 interface IAuthenticateClient {
@@ -17,6 +19,26 @@ export class AuthenticateClientUseCase {
       throw new Error("Username or password invalid!");
     }
 
-    return {token : 'asasd'};
+    const verifyPassword = await compare(password, client.password);
+
+    if (!verifyPassword) {
+      throw new Error("Username or password invalid!");
+    }
+
+    const token = jwt.sign(
+      {
+        username: client.username,
+      },
+      process.env.JWT_SECRET || "secret",
+      { subject: client.id, expiresIn: process.env.JWT_EXPIRE }
+    );
+
+    return {
+      token,
+      client: {
+        id: client.id,
+        username: client.username,
+      },
+    };
   }
 }
