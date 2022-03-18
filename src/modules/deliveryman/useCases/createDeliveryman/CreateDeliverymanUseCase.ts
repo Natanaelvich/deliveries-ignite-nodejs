@@ -17,7 +17,6 @@ export class CreateDeliverymanUseCase {
       },
     });
 
-    console.log({ clientExists });
     if (clientExists) {
       throw new Error("Client already exists");
     }
