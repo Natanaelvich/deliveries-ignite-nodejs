@@ -17,7 +17,6 @@ export class RefreshClientTokenUseCase {
       where: { id: id_client },
     });
 
-    console.log({refreshClientTokenExists})
     if (!refreshClientTokenExists) {
       throw new Error("Invalid token");
     }
