@@ -1,7 +1,6 @@
 import { compare } from "bcrypt";
 import jwt from "jsonwebtoken";
 import prismaClient from "../../../../database";
-import { RefreshClientTokenUseCase } from "../refreshClientToken/RefreshClientTokenUseCase";
 
 interface IAuthenticateClient {
   username: string;
@@ -43,7 +42,7 @@ export class AuthenticateClientUseCase {
     );
 
     await prismaClient.refreshClientToken.create({
-      data: { id_client: client.id, token },
+      data: { id_client: client.id, token: refreshToken },
     });
 
     return {
