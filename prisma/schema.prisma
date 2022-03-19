@@ -24,7 +24,8 @@ model Client {
     username String @unique
     password String
 
-    Delivery Delivery[]
+    Delivery           Delivery[]
+    RefreshClientToken RefreshClientToken[]
     @@map("client")
 }
 
@@ -39,4 +40,13 @@ model Delivery {
     end_at         DateTime    @default(now())
 
     @@map("delivery")
+}
+
+model RefreshClientToken {
+    id        Int    @id @default(autoincrement())
+    id_client String
+    client    Client @relation(fields: [id_client], references: [id])
+    token     String
+
+    @@map("refreshclienttoken")
 }
