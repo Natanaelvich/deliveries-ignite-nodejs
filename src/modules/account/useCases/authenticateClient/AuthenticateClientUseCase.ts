@@ -1,6 +1,7 @@
 import { compare } from "bcrypt";
 import jwt from "jsonwebtoken";
 import prismaClient from "../../../../database";
+import { RefreshClientTokenUseCase } from "../refreshClientToken/RefreshClientTokenUseCase";
 
 interface IAuthenticateClient {
   username: string;
@@ -33,8 +34,21 @@ export class AuthenticateClientUseCase {
       { subject: client.id, expiresIn: process.env.JWT_EXPIRE }
     );
 
+    const refreshToken = jwt.sign(
+      {
+        username: client.username,
+      },
+      process.env.JWT_SECRET_REFRESH || "secret",
+      { subject: client.id, expiresIn: process.env.JWT_EXPIRE_REFRESH }
+    );
+
+    await prismaClient.refreshClientToken.create({
+      data: { id_client: client.id, token },
+    });
+
     return {
       token,
+      refreshToken,
       client: {
         id: client.id,
         username: client.username,
