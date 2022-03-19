@@ -8,7 +8,6 @@ interface ICreateRefreshClientToken {
 
 export class RefreshClientTokenUseCase {
   async execute({ id_client, token }: ICreateRefreshClientToken) {
-      console.log({token})
     const refreshClientTokenExists =
       await prismaClient.refreshClientToken.findFirst({
         where: { token },
