@@ -1,0 +1,30 @@
+_id: req_eede283f451d448d8d45aa22c3f9c2b8
+type: Request
+parentId: wrk_1fe543cc57104738a75a559ed889733c
+modified: 1647742442899
+created: 1647742066018
+url: http://localhost:3000/deliveryman
+name: My Request
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"username" : "natanael1",
+    	"password" : "abc123"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_16770da70ffc4a1e91f897067995b6a5
+authentication: {}
+metaSortKey: -1647742066018
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
