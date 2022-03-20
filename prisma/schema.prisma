@@ -17,6 +17,7 @@ model Deliveryman {
 
     Delivery Delivery[]
     @@map("deliveryman")
+    RefreshDeliverymanToken RefreshDeliverymanToken[]
 }
 
 model Client {
@@ -49,4 +50,13 @@ model RefreshClientToken {
     token     String
 
     @@map("refreshclienttoken")
+}
+
+model RefreshDeliverymanToken {
+    id             Int         @id @default(autoincrement())
+    id_deliveryman String
+    Deliveryman    Deliveryman @relation(fields: [id_deliveryman], references: [id])
+    token          String
+
+    @@map("refreshDeliverymanToken")
 }
