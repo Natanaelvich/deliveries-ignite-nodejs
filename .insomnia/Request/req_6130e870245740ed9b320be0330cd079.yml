@@ -1,26 +1,26 @@
-_id: req_eede283f451d448d8d45aa22c3f9c2b8
+_id: req_6130e870245740ed9b320be0330cd079
 type: Request
-parentId: wrk_1fe543cc57104738a75a559ed889733c
-modified: 1647828228780
-created: 1647742066018
+parentId: fld_1194d79d8efb454996e5505d2fc2cb2e
+modified: 1647828305419
+created: 1647828283915
 url: http://localhost:3000/deliveryman
-name: deliveryman
+name: create deliveryman
 description: ""
 method: POST
 body:
   mimeType: application/json
   text: |-
     {
-    	"username" : "natanael1",
+    	"username" : "joao",
     	"password" : "abc123"
     }
 parameters: []
 headers:
   - name: Content-Type
     value: application/json
-    id: pair_16770da70ffc4a1e91f897067995b6a5
+    id: pair_62c46285dc494fbea7b147e3ede3e199
 authentication: {}
-metaSortKey: -1647742066018
+metaSortKey: -1647783789598.0625
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

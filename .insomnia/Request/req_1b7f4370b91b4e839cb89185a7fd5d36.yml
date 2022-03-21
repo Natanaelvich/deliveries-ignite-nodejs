@@ -1,0 +1,21 @@
+_id: req_1b7f4370b91b4e839cb89185a7fd5d36
+type: Request
+parentId: fld_1194d79d8efb454996e5505d2fc2cb2e
+modified: 1647828248728
+created: 1647828226725
+url: http://localhost:3000/deliveryman
+name: get all deliveryman
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1647825513178.125
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
