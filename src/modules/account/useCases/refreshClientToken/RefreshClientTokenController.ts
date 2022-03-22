@@ -18,7 +18,7 @@ export class RefreshClientTokenController {
 
       response.json(refreshClientToken);
     } else {
-      response.json({ message: "Invalid Token" }).status(401);
+      response.status(401).json({ message: "Invalid Token" });
     }
   }
 }
