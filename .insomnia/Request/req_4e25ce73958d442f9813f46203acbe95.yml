@@ -1,10 +1,10 @@
-_id: req_6130e870245740ed9b320be0330cd079
+_id: req_4e25ce73958d442f9813f46203acbe95
 type: Request
 parentId: fld_1194d79d8efb454996e5505d2fc2cb2e
-modified: 1647916632819
-created: 1647828283915
-url: http://localhost:3000/deliveryman
-name: create deliveryman
+modified: 1648001461614
+created: 1647916641700
+url: http://localhost:3000/deliveryman/signin
+name: signin deliveryman
 description: ""
 method: POST
 body:
@@ -20,7 +20,7 @@ headers:
     value: application/json
     id: pair_62c46285dc494fbea7b147e3ede3e199
 authentication: {}
-metaSortKey: -1647783789598.0625
+metaSortKey: -1647590971374.0312
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
