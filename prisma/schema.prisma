@@ -15,9 +15,9 @@ model Deliveryman {
     username String @unique
     password String
 
-    Delivery Delivery[]
-    @@map("deliveryman")
+    Delivery                Delivery[]
     RefreshDeliverymanToken RefreshDeliverymanToken[]
+    @@map("deliveryman")
 }
 
 model Client {
@@ -31,14 +31,14 @@ model Client {
 }
 
 model Delivery {
-    id             Int         @id @default(autoincrement())
+    id             Int          @id @default(autoincrement())
     id_client      String
-    client         Client      @relation(fields: [id_client], references: [id])
-    id_deliveryman String
-    deliveryman    Deliveryman @relation(fields: [id_deliveryman], references: [id])
+    client         Client       @relation(fields: [id_client], references: [id])
+    id_deliveryman String?
+    deliveryman    Deliveryman? @relation(fields: [id_deliveryman], references: [id])
     item_name      String
-    created_at     DateTime    @default(now())
-    end_at         DateTime    @default(now())
+    created_at     DateTime     @default(now())
+    end_at         DateTime     @default(now())
 
     @@map("delivery")
 }
