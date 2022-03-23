@@ -5,7 +5,7 @@ function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Token is missing" });
   }
 
   try {
@@ -14,7 +14,7 @@ function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
     if (sub && typeof sub === "string") {
       request.id = sub;
     } else {
-      return res.status(401).json({ message: "Token is missing" });
+      return res.status(401).json({ message: "Invalid token" });
     }
   } catch (error) {
     if (error.name === "TokenExpiredError") {
