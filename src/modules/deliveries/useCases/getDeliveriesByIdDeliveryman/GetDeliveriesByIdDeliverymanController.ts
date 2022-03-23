@@ -3,10 +3,7 @@ import { GetDeliveriesByIdDeliverymanUseCase } from "./GetDeliveriesByIdDelivery
 
 export class GetDeliveriesByIdDeliverymanController {
   async handle(request: Request, response: Response) {
-      console.log('HEHEHEHEHEH')
-      
     const { id } = request;
-
 
     const getDeliveriesByIdDeliverymanUseCase =
       new GetDeliveriesByIdDeliverymanUseCase();
