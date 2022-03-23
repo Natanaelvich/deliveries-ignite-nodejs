@@ -5,6 +5,7 @@ import { AuthenticateDeliverymanController } from "./modules/account/useCases/au
 import { RefreshClientTokenController } from "./modules/account/useCases/refreshClientToken/RefreshClientTokenController";
 import { RefreshDeliverymanTokenController } from "./modules/account/useCases/refreshDeliverymanToken/RefreshDeliverymanTokenController";
 import { CreateClientController } from "./modules/client/useCases/createClient/CreateClientController";
+import { GetAllClientsController } from "./modules/client/useCases/getAllClients/GetAllClientsController";
 import { CreateDeliveryController } from "./modules/deliveries/useCases/createDelivery/CreateDeliveryController";
 import { GetDeliveriesByIdDeliverymanController } from "./modules/deliveries/useCases/getDeliveriesByIdDeliveryman/GetDeliveriesByIdDeliverymanController";
 import { CreateDeliverymanController } from "./modules/deliveryman/useCases/createDeliveryman/CreateDeliverymanController";
@@ -13,6 +14,7 @@ import { GetDeliverymanController } from "./modules/deliveryman/useCases/getDeli
 
 const routes = Router();
 
+const getAllClientsController = new GetAllClientsController();
 const createClientController = new CreateClientController();
 const authenticateClientController = new AuthenticateClientController();
 const refreshClientTokenController = new RefreshClientTokenController();
@@ -29,6 +31,7 @@ const createDeliveryController = new CreateDeliveryController();
 const getDeliveriesByIdDeliverymanController =
   new GetDeliveriesByIdDeliverymanController();
 
+routes.get("/client", getAllClientsController.handle);
 routes.post("/client", createClientController.handle);
 routes.post("/client/signin", authenticateClientController.handle);
 routes.post("/client/refreshtoken", refreshClientTokenController.handle);
