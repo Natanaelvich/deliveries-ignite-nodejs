@@ -14,7 +14,7 @@ function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
     if (sub && typeof sub === "string") {
       request.id = sub;
     } else {
-      return res.status(401).json({ message: "Invalid token" });
+      return res.status(401).json({ message: "Token is missing" });
     }
   } catch (error) {
     if (error.name === "TokenExpiredError") {
