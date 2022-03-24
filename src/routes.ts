@@ -48,7 +48,7 @@ routes.post(
   refreshDeliverymanTokenController.handle
 );
 
-routes.post("/delivery", createDeliveryController.handle);
+routes.post("/delivery", ensureAuthenticated, createDeliveryController.handle);
 routes.get(
   "/delivery/deliveryman",
   ensureAuthenticated,
