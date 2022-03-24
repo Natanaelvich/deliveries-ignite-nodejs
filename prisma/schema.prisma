@@ -31,7 +31,7 @@ model Client {
 }
 
 model Delivery {
-    id             Int          @id @default(autoincrement())
+    id             String       @id @default(uuid())
     id_client      String
     client         Client       @relation(fields: [id_client], references: [id])
     id_deliveryman String?
@@ -44,7 +44,7 @@ model Delivery {
 }
 
 model RefreshClientToken {
-    id        Int    @id @default(autoincrement())
+    id        String @id @default(uuid())
     id_client String
     client    Client @relation(fields: [id_client], references: [id])
     token     String
@@ -53,7 +53,7 @@ model RefreshClientToken {
 }
 
 model RefreshDeliverymanToken {
-    id             Int         @id @default(autoincrement())
+    id             String      @id @default(uuid())
     id_deliveryman String
     Deliveryman    Deliveryman @relation(fields: [id_deliveryman], references: [id])
     token          String
