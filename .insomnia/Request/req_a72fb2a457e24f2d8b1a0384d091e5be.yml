@@ -1,17 +1,17 @@
-_id: req_6130e870245740ed9b320be0330cd079
+_id: req_a72fb2a457e24f2d8b1a0384d091e5be
 type: Request
-parentId: fld_1194d79d8efb454996e5505d2fc2cb2e
-modified: 1647916632819
-created: 1647828283915
-url: http://localhost:3000/deliveryman
-name: create deliveryman
+parentId: fld_16ff856ec17f47ca9ce1c42e125490e4
+modified: 1648003726054
+created: 1648003709366
+url: http://localhost:3000/client
+name: create client
 description: ""
 method: POST
 body:
   mimeType: application/json
   text: |-
     {
-    	"username" : "joao",
+    	"username" : "joao12",
     	"password" : "abc123"
     }
 parameters: []
@@ -20,7 +20,7 @@ headers:
     value: application/json
     id: pair_62c46285dc494fbea7b147e3ede3e199
 authentication: {}
-metaSortKey: -1647783789598.0625
+metaSortKey: -1647494562312.0156
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
