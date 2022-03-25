@@ -1,0 +1,34 @@
+_id: req_7f4799ef39a448869b6b951158a914dd
+type: Request
+parentId: fld_8c89652c8d4748c18853e9f36107356d
+modified: 1648088915737
+created: 1648088690332
+url: http://localhost:3000/delivery/adddeliveryman
+name: delivery/adddeliveryman
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"idDelivery": "0ed20307-ba3c-4ed3-be2d-5b38bb16fdfd",
+    	"idDeliveryman": "3edab1b0-e65e-4e9f-b30d-9a39dd84073b"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_77fff9a8ae484b06a51ca99cae0730f5
+authentication:
+  type: bearer
+  token: "{% response 'body', 'req_83d88ea8bf9b433282c5e2f561fcec29',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+  disabled: false
+metaSortKey: -1647836865347.8594
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
