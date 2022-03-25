@@ -9,7 +9,7 @@ export class GetDeliveriesByIdDeliverymanController {
       new GetDeliveriesByIdDeliverymanUseCase();
 
     const deliveries = await getDeliveriesByIdDeliverymanUseCase.execute({
-      idDeliveryman: id,
+      id_deliveryman: id,
     });
 
     response.json(deliveries);

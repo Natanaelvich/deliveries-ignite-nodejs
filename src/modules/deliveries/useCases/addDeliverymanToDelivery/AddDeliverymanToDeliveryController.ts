@@ -3,14 +3,14 @@ import { AddDeliverymanToDeliveryUseCase } from "./AddDeliverymanToDeliveryUseCa
 
 export class AddDeliverymanToDeliveryController {
   async handle(request: Request, response: Response) {
-    const { idDelivery, idDeliveryman } = request.body;
+    const { id_delivery, id_deliveryman } = request.body;
 
     const addDeliverymanToDeliveryUseCase =
       new AddDeliverymanToDeliveryUseCase();
 
     await addDeliverymanToDeliveryUseCase.execute({
-      idDelivery,
-      idDeliveryman,
+      id_delivery,
+      id_deliveryman,
     });
 
     response.status(204).send();

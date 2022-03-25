@@ -1,13 +1,13 @@
 import prismaClient from "../../../../database";
 
 interface IGetDeliveriesByIdDeliveryman {
-  idDeliveryman: string;
+  id_deliveryman: string;
 }
 
 export class GetDeliveriesByIdDeliverymanUseCase {
-  async execute({ idDeliveryman }: IGetDeliveriesByIdDeliveryman) {
+  async execute({ id_deliveryman }: IGetDeliveriesByIdDeliveryman) {
     const deliveries = await prismaClient.delivery.findMany({
-      where: { id_deliveryman: idDeliveryman },
+      where: { id_deliveryman },
     });
 
     return deliveries;

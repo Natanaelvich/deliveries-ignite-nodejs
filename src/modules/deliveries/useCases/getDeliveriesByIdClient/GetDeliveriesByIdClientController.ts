@@ -8,7 +8,7 @@ export class GetDeliveriesByIdClientController {
     const getDeliveriesByIdClientUseCase = new GetDeliveriesByIdClientUseCase();
 
     const deliveries = await getDeliveriesByIdClientUseCase.execute({
-      idClient: id,
+      id_client: id,
     });
 
     response.json(deliveries);
