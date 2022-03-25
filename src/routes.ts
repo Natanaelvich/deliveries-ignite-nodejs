@@ -8,6 +8,7 @@ import { CreateClientController } from "./modules/client/useCases/createClient/C
 import { GetAllClientsController } from "./modules/client/useCases/getAllClients/GetAllClientsController";
 import { AddDeliverymanToDeliveryController } from "./modules/deliveries/useCases/addDeliverymanToDelivery/AddDeliverymanToDeliveryController";
 import { CreateDeliveryController } from "./modules/deliveries/useCases/createDelivery/CreateDeliveryController";
+import { FinishDeliveryController } from "./modules/deliveries/useCases/finishDelivery/FinishDeliveryController";
 import { GetDeliveriesByIdClientController } from "./modules/deliveries/useCases/getDeliveriesByIdClient/GetDeliveriesByIdClientController";
 import { GetDeliveriesByIdDeliverymanController } from "./modules/deliveries/useCases/getDeliveriesByIdDeliveryman/GetDeliveriesByIdDeliverymanController";
 import { GetDeliveriesWithoutDeliverymanController } from "./modules/deliveries/useCases/getDeliveriesWithoutDeliveryam/GetDeliveriesWithoutDeliverymanController";
@@ -35,8 +36,12 @@ const getDeliveriesByIdDeliverymanController =
   new GetDeliveriesByIdDeliverymanController();
 const getDeliveriesByIdClientController =
   new GetDeliveriesByIdClientController();
-  const addDeliverymanToDeliveryController = new AddDeliverymanToDeliveryController()
-const getDeliveriesWithoutDeliverymanController = new GetDeliveriesWithoutDeliverymanController()
+const addDeliverymanToDeliveryController =
+  new AddDeliverymanToDeliveryController();
+const getDeliveriesWithoutDeliverymanController =
+  new GetDeliveriesWithoutDeliverymanController();
+const finishDeliveryController = new FinishDeliveryController();
+
 routes.get("/client", getAllClientsController.handle);
 routes.post("/client", createClientController.handle);
 routes.post("/client/signin", authenticateClientController.handle);
@@ -71,6 +76,11 @@ routes.get(
   "/delivery/withoutdeliveryam",
   ensureAuthenticated,
   getDeliveriesWithoutDeliverymanController.handle
+);
+routes.put(
+  "/delivery/finish/:id_delivery",
+  ensureAuthenticated,
+  finishDeliveryController.handle
 );
 
 export default routes;
