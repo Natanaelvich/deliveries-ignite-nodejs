@@ -1,7 +1,7 @@
 _id: req_7f4799ef39a448869b6b951158a914dd
 type: Request
 parentId: fld_8c89652c8d4748c18853e9f36107356d
-modified: 1648088915737
+modified: 1648229405189
 created: 1648088690332
 url: http://localhost:3000/delivery/adddeliveryman
 name: delivery/adddeliveryman
@@ -11,8 +11,8 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"idDelivery": "0ed20307-ba3c-4ed3-be2d-5b38bb16fdfd",
-    	"idDeliveryman": "3edab1b0-e65e-4e9f-b30d-9a39dd84073b"
+    	"id_delivery": "0ed20307-ba3c-4ed3-be2d-5b38bb16fdfd",
+    	"id_deliveryman": "3edab1b0-e65e-4e9f-b30d-9a39dd84073b"
     }
 parameters: []
 headers:

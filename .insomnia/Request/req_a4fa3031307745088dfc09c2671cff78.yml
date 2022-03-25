@@ -1,29 +1,21 @@
-_id: req_307fcb0e94184a2181017db583c07b61
+_id: req_a4fa3031307745088dfc09c2671cff78
 type: Request
 parentId: fld_8c89652c8d4748c18853e9f36107356d
-modified: 1648175945638
-created: 1648004555120
-url: http://localhost:3000/delivery
-name: create delivery
+modified: 1648176063307
+created: 1648175948922
+url: http://localhost:3000/delivery/finish/e39ad3fd-9591-487a-879b-c18b9cf976f7
+name: finish delivery
 description: ""
-method: POST
-body:
-  mimeType: application/json
-  text: |-
-    {
-    	"item_name" : "teste" 
-    }
+method: PUT
+body: {}
 parameters: []
-headers:
-  - name: Content-Type
-    value: application/json
-    id: pair_77fff9a8ae484b06a51ca99cae0730f5
+headers: []
 authentication:
   type: bearer
   token: "{% response 'body', 'req_83d88ea8bf9b433282c5e2f561fcec29',
     'b64::JC50b2tlbg==::46b', 'never', 60 %}"
   disabled: false
-metaSortKey: -1647848217517.5938
+metaSortKey: -1647842541432.7266
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
