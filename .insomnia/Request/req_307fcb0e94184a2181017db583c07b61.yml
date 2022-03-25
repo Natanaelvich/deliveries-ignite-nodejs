@@ -1,21 +1,29 @@
-_id: req_64bc07e0822341498719116b7bffe8bf
+_id: req_307fcb0e94184a2181017db583c07b61
 type: Request
 parentId: fld_8c89652c8d4748c18853e9f36107356d
-modified: 1648090468213
-created: 1648003676782
-url: http://localhost:3000/delivery/client
-name: delivery/client
+modified: 1648089309826
+created: 1648004555120
+url: http://localhost:3000/delivery
+name: create delivery
 description: ""
-method: GET
-body: {}
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"item_name" : "teste" 
+    }
 parameters: []
-headers: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_77fff9a8ae484b06a51ca99cae0730f5
 authentication:
   type: bearer
   token: "{% response 'body', 'req_83d88ea8bf9b433282c5e2f561fcec29',
     'b64::JC50b2tlbg==::46b', 'never', 60 %}"
   disabled: false
-metaSortKey: -1647870921857.0625
+metaSortKey: -1647848217517.5938
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

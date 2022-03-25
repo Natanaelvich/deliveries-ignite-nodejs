@@ -1,10 +1,10 @@
-_id: req_64bc07e0822341498719116b7bffe8bf
+_id: req_fc0edd43c0ba4214baab18e87ec8c275
 type: Request
 parentId: fld_8c89652c8d4748c18853e9f36107356d
-modified: 1648090468213
-created: 1648003676782
-url: http://localhost:3000/delivery/client
-name: delivery/client
+modified: 1648173773104
+created: 1648090472175
+url: http://localhost:3000/delivery/withoutdeliveryam
+name: delivery/withoutdeliveryam
 description: ""
 method: GET
 body: {}
@@ -15,7 +15,7 @@ authentication:
   token: "{% response 'body', 'req_83d88ea8bf9b433282c5e2f561fcec29',
     'b64::JC50b2tlbg==::46b', 'never', 60 %}"
   disabled: false
-metaSortKey: -1647870921857.0625
+metaSortKey: -1647859569687.3281
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
