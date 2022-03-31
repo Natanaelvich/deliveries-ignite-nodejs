@@ -1,6 +1,6 @@
-import { compare } from "bcrypt";
-import jwt from "jsonwebtoken";
 import prismaClient from "../../../../database";
+import AuthenticationProvider from "../../providers/AuthenticationProvider";
+import RefreshTokenProvider from "../../providers/RefreshTokenProvider";
 
 interface IAuthenticateClient {
   username: string;
@@ -19,27 +19,13 @@ export class AuthenticateClientUseCase {
       throw new Error("Username or password invalid!");
     }
 
-    const verifyPassword = await compare(password, client.password);
+    const authenticationProvider = new AuthenticationProvider(client);
 
-    if (!verifyPassword) {
-      throw new Error("Username or password invalid!");
-    }
+    const token = await authenticationProvider.execute({ password });
 
-    const token = jwt.sign(
-      {
-        username: client.username,
-      },
-      process.env.JWT_SECRET || "secret",
-      { subject: client.id, expiresIn: process.env.JWT_EXPIRE }
-    );
+    const refreshTokenProvider = new RefreshTokenProvider(client);
 
-    const refreshToken = jwt.sign(
-      {
-        username: client.username,
-      },
-      process.env.JWT_SECRET_REFRESH || "secret",
-      { subject: client.id, expiresIn: process.env.JWT_EXPIRE_REFRESH }
-    );
+    const refreshToken = await refreshTokenProvider.execute();
 
     await prismaClient.refreshClientToken.create({
       data: { id_client: client.id, token: refreshToken },
