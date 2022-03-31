@@ -1,18 +1,17 @@
-_id: req_83d88ea8bf9b433282c5e2f561fcec29
+_id: req_0efb249e12a34153823d9c498874553b
 type: Request
 parentId: fld_16ff856ec17f47ca9ce1c42e125490e4
-modified: 1648694398445
-created: 1648003700475
-url: http://localhost:3000/client/signin
-name: signin client
+modified: 1648694487559
+created: 1648693847859
+url: http://localhost:3000/client/refreshtoken
+name: rerfresh token client
 description: ""
 method: POST
 body:
   mimeType: application/json
-  text: |-
+  text: >-
     {
-    	"username" : "joao12",
-    	"password" : "abc123"
+    	"refreshToken" : "{% response 'body', 'req_83d88ea8bf9b433282c5e2f561fcec29', 'b64::JC5yZWZyZXNoVG9rZW4=::46b', 'never', 60 %}"
     }
 parameters: []
 headers:
@@ -20,7 +19,7 @@ headers:
     value: application/json
     id: pair_62c46285dc494fbea7b147e3ede3e199
 authentication: {}
-metaSortKey: -1647494562262.0156
+metaSortKey: -1647446357706.0078
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
