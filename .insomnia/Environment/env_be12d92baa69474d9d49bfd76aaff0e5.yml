@@ -1,0 +1,14 @@
+_id: env_be12d92baa69474d9d49bfd76aaff0e5
+type: Environment
+parentId: env_b4ee0f5741dfe183c8ca1528bcbf78e041877e90
+modified: 1648823321040
+created: 1648823270594
+name: production
+data:
+  baseUrl: https://deliveries-ignite-nodejs-production.up.railway.app
+dataPropertyOrder:
+  "&":
+    - baseUrl
+color: null
+isPrivate: false
+metaSortKey: 1648823270594
