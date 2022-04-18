@@ -9,6 +9,9 @@ services:
       - ./:/usr/src/app
     ports:
       - "3000:3000"
+    depends_on:
+      - postgres
+    command:  bash -c  "yarn prisma migrate dev && yarn dev"
 
   postgres:
     image: 'bitnami/postgresql'
