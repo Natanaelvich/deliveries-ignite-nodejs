@@ -1,23 +1,93 @@
 import { Injectable } from '@nestjs/common';
+import { hash } from 'bcrypt';
+
+import { PrismaService } from 'src/database/prisma/prisma.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 
 @Injectable()
 export class ClientService {
-  create(createClientDto: CreateClientDto) {
-    return 'This action adds a new client';
+  constructor(private prismaService: PrismaService) {}
+
+  async create(createClientDto: CreateClientDto) {
+    const clientExists = await this.prismaService.client.findUnique({
+      where: { username: createClientDto.username },
+    });
+
+    if (clientExists) {
+      throw new Error('CLIENT_EXISTS');
+    }
+
+    const client = await this.prismaService.client.create({
+      data: createClientDto,
+      select: {
+        id: true,
+        username: true,
+        password: false,
+      },
+    });
+
+    return client;
   }
 
   findAll() {
-    return `This action returns all client`;
+    return this.prismaService.client.findMany({
+      select: {
+        id: true,
+        username: true,
+        password: false,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} client`;
+  findOne(id: string) {
+    return this.prismaService.client.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        username: true,
+        password: false,
+      },
+    });
   }
 
-  update(id: number, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
+  async update(id: string, updateClientDto: UpdateClientDto) {
+    const clientExists = await this.prismaService.client.findUnique({
+      where: { id },
+    });
+
+    if (!clientExists) {
+      throw new Error('CLIENT_NOT_EXISTS');
+    }
+
+    const clientExistsWithSameUserName =
+      await this.prismaService.client.findUnique({
+        where: { username: updateClientDto.username },
+      });
+
+    if (clientExistsWithSameUserName.id !== id) {
+      throw new Error('CLIENT_EXISTS_WITH_USERNAME');
+    }
+
+    const hashPassword = await hash(
+      updateClientDto.password || clientExists.password,
+      10,
+    );
+
+    const client = await this.prismaService.client.update({
+      where: { id },
+      data: {
+        password: hashPassword,
+        username: updateClientDto.username,
+      },
+      select: {
+        id: true,
+        username: true,
+        password: false,
+      },
+    });
+
+    return client;
   }
 
   remove(id: number) {
