@@ -1,1 +1,4 @@
-export class CreateClientDto {}
+export class CreateClientDto {
+  username: string;
+  password: string;
+}
