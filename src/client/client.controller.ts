@@ -8,7 +8,9 @@ import {
   Delete,
   HttpStatus,
   HttpException,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthorizationGuard } from 'src/authorization.guard';
 import { ClientService } from './client.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
@@ -41,6 +43,7 @@ export class ClientController {
     return this.clientService.findOne(id);
   }
 
+  @UseGuards(AuthorizationGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
     return this.clientService.update(id, updateClientDto);
