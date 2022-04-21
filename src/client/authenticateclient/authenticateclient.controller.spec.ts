@@ -11,7 +11,9 @@ describe('AuthenticateclientController', () => {
       providers: [AuthenticateclientService],
     }).compile();
 
-    controller = module.get<AuthenticateclientController>(AuthenticateclientController);
+    controller = module.get<AuthenticateclientController>(
+      AuthenticateclientController,
+    );
   });
 
   it('should be defined', () => {
