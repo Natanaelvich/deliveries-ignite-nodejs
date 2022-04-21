@@ -8,7 +8,7 @@ export class AuthenticateclientService {
   constructor(private prismaService: PrismaService) {}
 
   async authenticate(username: string, password: string) {
-    const client = await this.prismaService.client.findFirst({
+    const client = await this.prismaService.client.findUnique({
       where: {
         username,
       },
