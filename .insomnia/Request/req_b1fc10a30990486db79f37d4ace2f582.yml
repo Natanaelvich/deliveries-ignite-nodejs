@@ -1,0 +1,21 @@
+_id: req_b1fc10a30990486db79f37d4ace2f582
+type: Request
+parentId: fld_16ff856ec17f47ca9ce1c42e125490e4
+modified: 1650422627157
+created: 1650422531435
+url: "{{ _.baseUrl }}/client/490b5ceb-6fce-4f8d-98ef-370fb6da8431"
+name: findone client
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1647494562274.5156
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
