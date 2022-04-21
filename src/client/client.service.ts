@@ -57,7 +57,7 @@ export class ClientService {
     });
 
     if (!clientExists) {
-      throw new Error('CLIENT_NOT_EXISTS');
+      throw new Error('CLIENT_NOT_FOUND');
     }
 
     const clientExistsWithSameUserName =
@@ -65,7 +65,10 @@ export class ClientService {
         where: { username: updateClientDto.username },
       });
 
-    if (clientExistsWithSameUserName.id !== id) {
+    if (
+      clientExistsWithSameUserName &&
+      clientExistsWithSameUserName.id !== id
+    ) {
       throw new Error('CLIENT_EXISTS_WITH_USERNAME');
     }
 
