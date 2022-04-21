@@ -9,6 +9,7 @@ import {
   HttpStatus,
   HttpException,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { AuthorizationGuard } from 'src/authorization.guard';
 import { ClientService } from './client.service';
@@ -43,10 +44,24 @@ export class ClientController {
     return this.clientService.findOne(id);
   }
 
+  @Patch()
   @UseGuards(AuthorizationGuard)
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientService.update(id, updateClientDto);
+  async update(@Request() req, @Body() updateClientDto: UpdateClientDto) {
+    try {
+      return await this.clientService.update(req.id, updateClientDto);
+    } catch (error) {
+      if (error.message === 'CLIENT_EXISTS_WITH_USERNAME') {
+        throw new HttpException(
+          'Client already exists with username',
+          HttpStatus.CONFLICT,
+        );
+      }
+      if (error.message === 'CLIENT_NOT_FOUND') {
+        throw new HttpException('Client not found', HttpStatus.NOT_FOUND);
+      }
+
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Delete(':id')
