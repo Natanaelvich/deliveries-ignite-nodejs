@@ -18,8 +18,13 @@ export class ClientService {
       throw new Error('CLIENT_EXISTS');
     }
 
+    const hashPassword = await hash(createClientDto.password, 10);
+
     const client = await this.prismaService.client.create({
-      data: createClientDto,
+      data: {
+        username: createClientDto.username,
+        password: hashPassword,
+      },
       select: {
         id: true,
         username: true,
