@@ -9,10 +9,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ errorHttpStatusCode: 422 }));
 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Deliveries')
+    .setDescription('Deliveries app')
     .setVersion('1.0')
-    .addTag('cats')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
