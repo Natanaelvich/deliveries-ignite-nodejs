@@ -1,15 +1,33 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { AuthorizationGuard } from 'src/authorization.guard';
 import { DeliveryService } from './delivery.service';
 import { CreateDeliveryDto } from './dto/create-delivery.dto';
 import { UpdateDeliveryDto } from './dto/update-delivery.dto';
 
+@ApiTags('delivery')
 @Controller('delivery')
 export class DeliveryController {
   constructor(private readonly deliveryService: DeliveryService) {}
 
+  @UseGuards(AuthorizationGuard)
   @Post()
-  create(@Body() createDeliveryDto: CreateDeliveryDto) {
-    return this.deliveryService.create(createDeliveryDto);
+  create(
+    @Request() req,
+    @Body()
+    createDeliveryDto: CreateDeliveryDto,
+  ) {
+    return this.deliveryService.create(req.id, createDeliveryDto);
   }
 
   @Get()
@@ -23,7 +41,10 @@ export class DeliveryController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDeliveryDto: UpdateDeliveryDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateDeliveryDto: UpdateDeliveryDto,
+  ) {
     return this.deliveryService.update(+id, updateDeliveryDto);
   }
 
