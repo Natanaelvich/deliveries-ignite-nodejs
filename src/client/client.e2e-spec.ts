@@ -52,6 +52,30 @@ describe('ClientController (e2e)', () => {
     ]);
   });
 
+  it('Should not be able create a client with number username', async () => {
+    const response = await request(app.getHttpServer()).post('/client').send({
+      username: 1,
+      password: 'teste2e',
+    });
+
+    expect(response.status).toBe(422);
+    expect(JSON.parse(response.text)).toHaveProperty('message', [
+      'username must be a string',
+    ]);
+  });
+
+  it('Should not be able create a client with number password', async () => {
+    const response = await request(app.getHttpServer()).post('/client').send({
+      username: 'teste2e',
+      password: 1,
+    });
+
+    expect(response.status).toBe(422);
+    expect(JSON.parse(response.text)).toHaveProperty('message', [
+      'password must be a string',
+    ]);
+  });
+
   it('Should be able signin a client', async () => {
     await request(app.getHttpServer()).post('/client').send({
       username: 'teste2e',
