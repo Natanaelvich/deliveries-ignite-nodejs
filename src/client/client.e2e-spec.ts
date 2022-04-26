@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { ClientModule } from './client.module';
 
@@ -12,6 +12,9 @@ describe('ClientController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+
+    app.useGlobalPipes(new ValidationPipe({ errorHttpStatusCode: 422 }));
+
     await app.init();
   });
 
@@ -23,6 +26,30 @@ describe('ClientController (e2e)', () => {
 
     expect(response.status).toBe(201);
     expect(JSON.parse(response.text)).toHaveProperty('username', 'teste2e');
+  });
+
+  it('Should not be able create a client without username', async () => {
+    const response = await request(app.getHttpServer()).post('/client').send({
+      username: '',
+      password: 'teste2e',
+    });
+
+    expect(response.status).toBe(422);
+    expect(JSON.parse(response.text)).toHaveProperty('message', [
+      'username should not be empty',
+    ]);
+  });
+
+  it('Should not be able create a client without password', async () => {
+    const response = await request(app.getHttpServer()).post('/client').send({
+      username: 'teste2e',
+      password: '',
+    });
+
+    expect(response.status).toBe(422);
+    expect(JSON.parse(response.text)).toHaveProperty('message', [
+      'password should not be empty',
+    ]);
   });
 
   it('Should be able signin a client', async () => {
