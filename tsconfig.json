@@ -18,12 +18,5 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true
-  },
-  "exclude": [
-      "prisma",
-      "node_modules"
-  ],
-  "include": [
-      "src/**/*"
-  ]
+  }
 }
