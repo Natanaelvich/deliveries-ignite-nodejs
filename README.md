@@ -1,4 +1,4 @@
-<h1 align="center">Deliveries Ignite Rocktseat</h1>
+<h1 align="center">Deliveries</h1>
 
 <p align="center">
   <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -12,7 +12,7 @@
 
 ## 📋 Description
 
-Deliveries Ignite Rocktseat made with Expressjs, Prisma and Typescript.
+Deliveries made with NestJS, Prisma and Typescript.
 
 ## ✨ Technologies!
 
