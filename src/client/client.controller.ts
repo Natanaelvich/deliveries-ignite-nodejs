@@ -12,10 +12,12 @@ import {
   Request,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthorizationGuard } from 'src/authorization.guard';
+
 import { ClientService } from './client.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+
+import { AuthorizationGuard } from 'src/authorization.guard';
 
 @ApiTags('client')
 @Controller('client')

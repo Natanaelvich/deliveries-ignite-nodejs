@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
+
 import { ClientModule } from './client.module';
 
 describe('ClientController (e2e)', () => {

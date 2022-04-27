@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { hash } from 'bcrypt';
 
-import { PrismaService } from 'src/database/prisma/prisma.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+
+import { PrismaService } from 'src/database/prisma/prisma.service';
 
 @Injectable()
 export class ClientService {
