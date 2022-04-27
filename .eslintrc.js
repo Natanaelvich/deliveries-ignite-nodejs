@@ -22,6 +22,23 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'import/order': [
+      1,
+      {
+        groups: [
+          'external',
+          'builtin',
+          'internal',
+          'sibling',
+          'parent',
+          'index',
+        ],
+      },
+    ],
+    'import/order': [
+      1,
+      {"newlines-between": "always-and-inside-groups"}
+    ],
   },
   settings: {
     'import/resolver': {
