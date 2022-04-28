@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { RefreshtokenclientController } from './refreshtokenclient.controller';
 import { RefreshtokenclientService } from './refreshtokenclient.service';
 
@@ -11,7 +12,9 @@ describe('RefreshtokenclientController', () => {
       providers: [RefreshtokenclientService],
     }).compile();
 
-    controller = module.get<RefreshtokenclientController>(RefreshtokenclientController);
+    controller = module.get<RefreshtokenclientController>(
+      RefreshtokenclientController,
+    );
   });
 
   it('should be defined', () => {
