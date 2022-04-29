@@ -35,8 +35,24 @@ export class AuthenticateclientService {
       { subject: client.id, expiresIn: process.env.JWT_EXPIRE },
     );
 
+    const refreshToken = sign(
+      {
+        username: username,
+      },
+      process.env.JWT_SECRET_REFRESH || 'secret',
+      { subject: client.id, expiresIn: process.env.JWT_EXPIRE_REFRESH },
+    );
+
+    await this.prismaService.refreshClientToken.create({
+      data: {
+        id_client: client.id,
+        token: refreshToken,
+      },
+    });
+
     return {
       token,
+      refreshToken,
     };
   }
 }

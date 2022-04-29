@@ -1,4 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { AuthenticateclientService } from './authenticateclient.service';
@@ -13,11 +19,16 @@ export class AuthenticateclientController {
 
   @Post()
   async create(@Body() { password, username }: CreateAuthenticateClientDto) {
-    const { token } = await this.authenticateclientService.authenticate({
-      username,
-      password,
-    });
+    try {
+      const { token, refreshToken } =
+        await this.authenticateclientService.authenticate({
+          username,
+          password,
+        });
 
-    return { token };
+      return { token, refreshToken };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }
