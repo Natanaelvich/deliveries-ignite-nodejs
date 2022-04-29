@@ -1,4 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { CreateRefreshtokenclient } from './dto/create-refreshtokenclient.dto';
@@ -14,10 +20,24 @@ export class RefreshtokenclientController {
 
   @Post()
   async create(@Body() { refresh_token }: CreateRefreshtokenclient) {
-    const refreshToken = await this.refreshtokenclientService.refresh({
-      refresh_token,
-    });
+    try {
+      const refreshToken = await this.refreshtokenclientService.refresh({
+        refresh_token,
+      });
 
-    return refreshToken;
+      return refreshToken;
+    } catch (error) {
+      if (error.message === 'NOT_FOUND_CLIENT') {
+        throw new HttpException('Client not found', HttpStatus.NOT_FOUND);
+      }
+      if (error.message === 'NOT_FOUND_REFRESH_TOKEN') {
+        throw new HttpException(
+          'Refresh token not found',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }
