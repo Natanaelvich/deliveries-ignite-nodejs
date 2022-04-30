@@ -16,14 +16,14 @@ model User {
     password String
 
     UserPermission UserPermission[]
-    @@map("userliveryman")
+    @@map("user")
 }
 
 model Permission {
     name String @unique
 
     UserPermission UserPermission[]
-    @@map("permissionsan")
+    @@map("permissions")
 }
 
 model UserPermission {
