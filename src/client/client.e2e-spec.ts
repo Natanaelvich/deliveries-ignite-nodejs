@@ -92,5 +92,6 @@ describe('ClientController (e2e)', () => {
 
     expect(response.status).toBe(201);
     expect(JSON.parse(response.text)).toHaveProperty('token');
+    expect(JSON.parse(response.text)).toHaveProperty('refreshToken');
   });
 });
