@@ -16,6 +16,8 @@ model User {
     password String
 
     UserPermission UserPermission[]
+    Delivery       Delivery[]
+    RefreshToken   RefreshToken[]
     @@map("user")
 }
 
@@ -36,53 +38,22 @@ model UserPermission {
     @@map("user_permissions")
 }
 
-model Deliveryman {
-    id       String @id @default(uuid())
-    username String @unique
-    password String
-
-    Delivery                Delivery[]
-    RefreshDeliverymanToken RefreshDeliverymanToken[]
-    @@map("deliveryman")
-}
-
-model Client {
-    id       String @id @default(uuid())
-    username String @unique
-    password String
-
-    Delivery           Delivery[]
-    RefreshClientToken RefreshClientToken[]
-    @@map("client")
-}
-
 model Delivery {
-    id             String       @id @default(uuid())
-    id_client      String
-    client         Client       @relation(fields: [id_client], references: [id])
-    id_deliveryman String?
-    deliveryman    Deliveryman? @relation(fields: [id_deliveryman], references: [id])
+    id             String    @id @default(uuid())
+    id_user_client String
+    client         User      @relation(fields: [id_user_client], references: [id])
     item_name      String
-    created_at     DateTime     @default(now())
+    created_at     DateTime  @default(now())
     end_at         DateTime?
 
     @@map("delivery")
 }
 
-model RefreshClientToken {
-    id        String @id @default(uuid())
-    id_client String
-    client    Client @relation(fields: [id_client], references: [id])
-    token     String
+model RefreshToken {
+    id      String @id @default(uuid())
+    id_user String
+    user    User   @relation(fields: [id_user], references: [id])
+    token   String
 
-    @@map("refreshclienttoken")
-}
-
-model RefreshDeliverymanToken {
-    id             String      @id @default(uuid())
-    id_deliveryman String
-    Deliveryman    Deliveryman @relation(fields: [id_deliveryman], references: [id])
-    token          String
-
-    @@map("refreshDeliverymanToken")
+    @@map("refreshtoken")
 }
