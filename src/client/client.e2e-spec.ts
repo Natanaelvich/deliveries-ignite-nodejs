@@ -94,4 +94,32 @@ describe('ClientController (e2e)', () => {
     expect(JSON.parse(response.text)).toHaveProperty('token');
     expect(JSON.parse(response.text)).toHaveProperty('refreshToken');
   });
+
+  it('Should be able refresh token client', async () => {
+    await request(app.getHttpServer()).post('/client').send({
+      username: 'teste2e',
+      password: 'teste2e',
+    });
+
+    const responseToken = await request(app.getHttpServer())
+      .post('/authenticateclient')
+      .send({
+        username: 'teste2e',
+        password: 'teste2e',
+      });
+
+    const { refreshToken } = JSON.parse(responseToken.text);
+
+    const responseRefreshToken = await request(app.getHttpServer())
+      .post('/refreshtokenclient')
+      .send({
+        refresh_token: refreshToken,
+      });
+
+    expect(responseRefreshToken.status).toBe(201);
+    expect(JSON.parse(responseRefreshToken.text)).toHaveProperty('token');
+    expect(JSON.parse(responseRefreshToken.text)).toHaveProperty(
+      'refreshToken',
+    );
+  });
 });
