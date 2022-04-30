@@ -10,6 +10,32 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+model User {
+    id       String @id @default(uuid())
+    username String @unique
+    password String
+
+    UserPermission UserPermission[]
+    @@map("userliveryman")
+}
+
+model Permission {
+    name String @unique
+
+    UserPermission UserPermission[]
+    @@map("permissionsan")
+}
+
+model UserPermission {
+    id         String     @id @default(uuid())
+    user       User       @relation(fields: [userId], references: [id])
+    permission Permission @relation(fields: [permissionName], references: [name])
+
+    userId         String
+    permissionName String
+    @@map("user_permissions")
+}
+
 model Deliveryman {
     id       String @id @default(uuid())
     username String @unique
