@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { sign, verify } from 'jsonwebtoken';
 
 import { UserService } from '../user.service';
+
+import { CreateRefreshtokenDto } from './dto/create-refreshtoken.dto';
 
 import { PrismaService } from 'src/database/prisma/prisma.service';
 
@@ -13,7 +15,7 @@ export class RefreshtokenService {
     private prismaService: PrismaService,
   ) {}
 
-  async refresh({ refresh_token }: { refresh_token: string }) {
+  async refresh({ refresh_token }: CreateRefreshtokenDto) {
     const { sub } = verify(
       refresh_token,
       process.env.JWT_SECRET_REFRESH || 'secret',
@@ -22,7 +24,7 @@ export class RefreshtokenService {
     const user = await this.userService.findOne(sub);
 
     if (!user) {
-      throw new Error('NOT_FOUND_');
+      throw new NotFoundException('User not found');
     }
 
     const refreshTokenExists = await this.prismaService.refreshToken.findFirst({
@@ -33,7 +35,7 @@ export class RefreshtokenService {
     });
 
     if (!refreshTokenExists) {
-      throw new Error('NOT_FOUND_REFRESH_TOKEN');
+      throw new NotFoundException('Refresh token not found');
     } else {
       await this.prismaService.refreshToken.delete({
         where: {
