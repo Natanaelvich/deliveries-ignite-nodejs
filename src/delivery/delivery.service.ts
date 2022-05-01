@@ -9,10 +9,19 @@ import { PrismaService } from 'src/database/prisma/prisma.service';
 export class DeliveryService {
   constructor(private prismaService: PrismaService) {}
 
-  create(id_user: string, createDeliveryDto: CreateDeliveryDto) {
-    return this.prismaService.delivery.create({
-      data: { id_user_client: id_user, item_name: createDeliveryDto.item_name },
+  async create(id_user: string, createDeliveryDto: CreateDeliveryDto) {
+    const client = await this.prismaService.client.findFirst({
+      where: { user_id: id_user },
     });
+
+    const delivery = await this.prismaService.delivery.create({
+      data: {
+        id_client: client.id,
+        item_name: createDeliveryDto.item_name,
+      },
+    });
+
+    return delivery;
   }
 
   findAll() {
