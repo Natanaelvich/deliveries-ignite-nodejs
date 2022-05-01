@@ -8,6 +8,8 @@ import {
   Delete,
   UseGuards,
   Request,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -24,12 +26,21 @@ export class DeliveryController {
 
   @UseGuards(AuthorizationGuard)
   @Post()
-  create(
+  async create(
     @Request() req,
     @Body()
     createDeliveryDto: CreateDeliveryDto,
   ) {
-    return this.deliveryService.create(req.id, createDeliveryDto);
+    try {
+      const delivery = await this.deliveryService.create(
+        req.id,
+        createDeliveryDto,
+      );
+
+      return delivery;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Get()
