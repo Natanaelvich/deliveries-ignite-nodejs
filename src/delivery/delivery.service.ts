@@ -14,6 +14,10 @@ export class DeliveryService {
       where: { user_id: id_user },
     });
 
+    if (!client) {
+      throw new Error('CLIENT_NOT_FOUND');
+    }
+
     const delivery = await this.prismaService.delivery.create({
       data: {
         id_client: client.id,
