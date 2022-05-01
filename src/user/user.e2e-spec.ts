@@ -2,14 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 
-import { ClientModule } from './client.module';
+import { UserModule } from './user.module';
 
-describe('ClientController (e2e)', () => {
+describe('UserController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [ClientModule],
+      imports: [UserModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -19,8 +19,8 @@ describe('ClientController (e2e)', () => {
     await app.init();
   });
 
-  it('Should be able create a client', async () => {
-    const response = await request(app.getHttpServer()).post('/client').send({
+  it('Should be able create a user', async () => {
+    const response = await request(app.getHttpServer()).post('/user').send({
       username: 'teste2e',
       password: 'teste2e',
     });
@@ -29,8 +29,8 @@ describe('ClientController (e2e)', () => {
     expect(JSON.parse(response.text)).toHaveProperty('username', 'teste2e');
   });
 
-  it('Should not be able create a client without username', async () => {
-    const response = await request(app.getHttpServer()).post('/client').send({
+  it('Should not be able create a user without username', async () => {
+    const response = await request(app.getHttpServer()).post('/user').send({
       username: '',
       password: 'teste2e',
     });
@@ -41,8 +41,8 @@ describe('ClientController (e2e)', () => {
     ]);
   });
 
-  it('Should not be able create a client without password', async () => {
-    const response = await request(app.getHttpServer()).post('/client').send({
+  it('Should not be able create a user without password', async () => {
+    const response = await request(app.getHttpServer()).post('/user').send({
       username: 'teste2e',
       password: '',
     });
@@ -53,8 +53,8 @@ describe('ClientController (e2e)', () => {
     ]);
   });
 
-  it('Should not be able create a client with number username', async () => {
-    const response = await request(app.getHttpServer()).post('/client').send({
+  it('Should not be able create a user with number username', async () => {
+    const response = await request(app.getHttpServer()).post('/user').send({
       username: 1,
       password: 'teste2e',
     });
@@ -65,8 +65,8 @@ describe('ClientController (e2e)', () => {
     ]);
   });
 
-  it('Should not be able create a client with number password', async () => {
-    const response = await request(app.getHttpServer()).post('/client').send({
+  it('Should not be able create a user with number password', async () => {
+    const response = await request(app.getHttpServer()).post('/user').send({
       username: 'teste2e',
       password: 1,
     });
@@ -77,14 +77,14 @@ describe('ClientController (e2e)', () => {
     ]);
   });
 
-  it('Should be able signin a client', async () => {
-    await request(app.getHttpServer()).post('/client').send({
+  it('Should be able signin a user', async () => {
+    await request(app.getHttpServer()).post('/user').send({
       username: 'teste2e',
       password: 'teste2e',
     });
 
     const response = await request(app.getHttpServer())
-      .post('/authenticateclient')
+      .post('/authenticateuser')
       .send({
         username: 'teste2e',
         password: 'teste2e',
@@ -95,14 +95,14 @@ describe('ClientController (e2e)', () => {
     expect(JSON.parse(response.text)).toHaveProperty('refreshToken');
   });
 
-  it('Should be able refresh token client', async () => {
-    await request(app.getHttpServer()).post('/client').send({
+  it('Should be able refresh token user', async () => {
+    await request(app.getHttpServer()).post('/user').send({
       username: 'teste2e',
       password: 'teste2e',
     });
 
     const responseToken = await request(app.getHttpServer())
-      .post('/authenticateclient')
+      .post('/authenticateuser')
       .send({
         username: 'teste2e',
         password: 'teste2e',
@@ -111,7 +111,7 @@ describe('ClientController (e2e)', () => {
     const { refreshToken } = JSON.parse(responseToken.text);
 
     const responseRefreshToken = await request(app.getHttpServer())
-      .post('/refreshtokenclient')
+      .post('/refreshtokenuser')
       .send({
         refresh_token: refreshToken,
       });

@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 
 import { sign, verify } from 'jsonwebtoken';
 
-import { ClientService } from '../client.service';
+import { UserService } from '../user.service';
 
 import { PrismaService } from 'src/database/prisma/prisma.service';
 
 @Injectable()
-export class RefreshtokenclientService {
+export class RefreshtokenService {
   constructor(
-    private clientService: ClientService,
+    private userService: UserService,
     private prismaService: PrismaService,
   ) {}
 
@@ -19,24 +19,23 @@ export class RefreshtokenclientService {
       process.env.JWT_SECRET_REFRESH || 'secret',
     ) as { sub: string };
 
-    const client = await this.clientService.findOne(sub);
+    const user = await this.userService.findOne(sub);
 
-    if (!client) {
-      throw new Error('NOT_FOUND_CLIENT');
+    if (!user) {
+      throw new Error('NOT_FOUND_');
     }
 
-    const refreshTokenExists =
-      await this.prismaService.refreshClientToken.findFirst({
-        where: {
-          id_client: client.id,
-          token: refresh_token,
-        },
-      });
+    const refreshTokenExists = await this.prismaService.refreshToken.findFirst({
+      where: {
+        id: user.id,
+        token: refresh_token,
+      },
+    });
 
     if (!refreshTokenExists) {
       throw new Error('NOT_FOUND_REFRESH_TOKEN');
     } else {
-      await this.prismaService.refreshClientToken.delete({
+      await this.prismaService.refreshToken.delete({
         where: {
           id: refreshTokenExists.id,
         },
@@ -45,18 +44,18 @@ export class RefreshtokenclientService {
 
     const newRefreshToken = sign(
       {
-        username: client.username,
+        username: user.username,
       },
       process.env.JWT_SECRET_REFRESH || 'secret',
-      { subject: client.id, expiresIn: process.env.JWT_EXPIRE_REFRESH },
+      { subject: user.id, expiresIn: process.env.JWT_EXPIRE_REFRESH },
     );
 
     const newToken = sign(
       {
-        username: client.username,
+        username: user.username,
       },
       process.env.JWT_SECRET || 'secret',
-      { subject: client.id, expiresIn: process.env.JWT_EXPIRE },
+      { subject: user.id, expiresIn: process.env.JWT_EXPIRE },
     );
 
     return {

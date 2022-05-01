@@ -9,9 +9,9 @@ import { PrismaService } from 'src/database/prisma/prisma.service';
 export class DeliveryService {
   constructor(private prismaService: PrismaService) {}
 
-  create(id_client: string, createDeliveryDto: CreateDeliveryDto) {
+  create(id_user: string, createDeliveryDto: CreateDeliveryDto) {
     return this.prismaService.delivery.create({
-      data: { id_client, ...createDeliveryDto },
+      data: { id_user_client: id_user, ...createDeliveryDto },
     });
   }
 

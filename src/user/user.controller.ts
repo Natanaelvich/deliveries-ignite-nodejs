@@ -13,25 +13,25 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { ClientService } from './client.service';
-import { CreateClientDto } from './dto/create-client.dto';
-import { UpdateClientDto } from './dto/update-client.dto';
+import { UserService } from './user.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 import { AuthorizationGuard } from 'src/authorization.guard';
 
-@ApiTags('client')
-@Controller('client')
-export class ClientController {
-  constructor(private readonly clientService: ClientService) {}
+@ApiTags('user')
+@Controller('user')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
 
   @Post()
-  async create(@Body() createClientDto: CreateClientDto) {
+  async create(@Body() createUserDto: CreateUserDto) {
     try {
-      const client = await this.clientService.create(createClientDto);
-      return client;
+      const user = await this.userService.create(createUserDto);
+      return user;
     } catch (error) {
       if (error.message === 'CLIENT_EXISTS') {
-        throw new HttpException('Client already exists', HttpStatus.CONFLICT);
+        throw new HttpException('User already exists', HttpStatus.CONFLICT);
       }
 
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -40,28 +40,28 @@ export class ClientController {
 
   @Get()
   findAll() {
-    return this.clientService.findAll();
+    return this.userService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.clientService.findOne(id);
+    return this.userService.findOne(id);
   }
 
   @Patch()
   @UseGuards(AuthorizationGuard)
-  async update(@Request() req, @Body() updateClientDto: UpdateClientDto) {
+  async update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
     try {
-      return await this.clientService.update(req.id, updateClientDto);
+      return await this.userService.update(req.id, updateUserDto);
     } catch (error) {
       if (error.message === 'CLIENT_EXISTS_WITH_USERNAME') {
         throw new HttpException(
-          'Client already exists with username',
+          'User already exists with username',
           HttpStatus.CONFLICT,
         );
       }
       if (error.message === 'CLIENT_NOT_FOUND') {
-        throw new HttpException('Client not found', HttpStatus.NOT_FOUND);
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
       }
 
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -70,6 +70,6 @@ export class ClientController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.clientService.remove(+id);
+    return this.userService.remove(+id);
   }
 }
