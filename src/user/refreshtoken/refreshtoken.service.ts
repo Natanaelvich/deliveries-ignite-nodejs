@@ -29,7 +29,7 @@ export class RefreshtokenService {
 
     const refreshTokenExists = await this.prismaService.refreshToken.findFirst({
       where: {
-        id: user.id,
+        id_user: user.id,
         token: refresh_token,
       },
     });
