@@ -1,12 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsEmpty, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateDeliveryDto {
-  @IsString()
-  @IsOptional()
-  @ApiProperty()
-  id_deliveryman?: string;
-
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
