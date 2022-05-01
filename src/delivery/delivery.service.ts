@@ -11,7 +11,7 @@ export class DeliveryService {
 
   create(id_user: string, createDeliveryDto: CreateDeliveryDto) {
     return this.prismaService.delivery.create({
-      data: { id_user_client: id_user, ...createDeliveryDto },
+      data: { id_user_client: id_user, item_name: createDeliveryDto.item_name },
     });
   }
 
