@@ -39,6 +39,13 @@ export class DeliveryController {
 
       return delivery;
     } catch (error) {
+      if (error.message === 'CLIENT_NOT_FOUND') {
+        throw new HttpException(
+          'Your user is not a client',
+          HttpStatus.FORBIDDEN,
+        );
+      }
+
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
