@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { hash } from 'bcrypt';
 
 import { CreateUserDto } from './dto/create-user.dto';
@@ -16,7 +20,7 @@ export class UserService {
     });
 
     if (userExists) {
-      throw new Error('CLIENT_EXISTS');
+      throw new ConflictException('User already exists');
     }
 
     const hashPassword = await hash(createUserDto.password, 10);
@@ -63,7 +67,7 @@ export class UserService {
     });
 
     if (!userExists) {
-      throw new Error('CLIENT_NOT_FOUND');
+      throw new NotFoundException('User not found');
     }
 
     const userExistsWithSameUserName = await this.prismaService.user.findUnique(
@@ -73,7 +77,7 @@ export class UserService {
     );
 
     if (userExistsWithSameUserName && userExistsWithSameUserName.id !== id) {
-      throw new Error('CLIENT_EXISTS_WITH_USERNAME');
+      throw new ConflictException('Client alread exists with user name');
     }
 
     const hashPassword = await hash(

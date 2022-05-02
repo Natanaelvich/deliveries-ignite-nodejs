@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { CreateDeliveryDto } from './dto/create-delivery.dto';
 import { UpdateDeliveryDto } from './dto/update-delivery.dto';
@@ -15,7 +15,7 @@ export class DeliveryService {
     });
 
     if (!client) {
-      throw new Error('CLIENT_NOT_FOUND');
+      throw new NotFoundException('Your user is not a client');
     }
 
     const delivery = await this.prismaService.delivery.create({
